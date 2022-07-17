@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\ConfigInDb;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController as BaseController;
+use App\Http\Requests\ConfigRequest;
+use App\Services\ConfigService;
 
-class ConfigInDbController extends Controller
+class ConfigInDbController extends BaseController
 {
+    protected $configService;
+
+    public function __construct(ConfigService $configService)
+    {
+        $this->configService = $configService;
+    }
 
     // to set new config
     //     ConfigInDb::create([
@@ -29,56 +38,21 @@ class ConfigInDbController extends Controller
         $data = ConfigInDb::orderBy('id','DESC')->paginate(15);
         return view('config.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
-    }
+    } 
+    public function store(ConfigRequest $request)
+    { 
+        $input = $request->all(); 
+        $user = ConfigInDb::create($input); 
+        return $this->redirectBackSuccess("success store"); 
+    } 
 
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-       
-         
-    }
-
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'key' => 'required',
-            'value' => 'required'
-          
-        ]);
-    
-        $input = $request->all();
-          
-        $user = ConfigInDb::create($input);
-        
-        return redirect()->route('configurations.index')
-                        ->with('success','Config created successfully');
-    }
- 
-     
     public function update(Request $request)
-    {  
-    
+    {    
         $inputs = $request->all(); 
-        $request->only(['_token', '_method']);
-         foreach ($inputs as  $key=>$value){ 
-            if(!config('configInDb.'.$key) == null){
-                if(config('configInDb.'.$key) != $value)
-              ConfigInDb::where('key', $key)->update(['value'=>$value]);
-
-            }
-         } 
-        return redirect()->route('configurations.index')
-                        ->with('success','Config updated successfully');
+         $request->only(['_token', '_method']);
+        $this->configService->updateAllConfig($inputs);
+        return $this->redirectBackSuccess("success update");
+                        
     }
 
      /**
@@ -90,8 +64,7 @@ class ConfigInDbController extends Controller
     public function destroy($id)
     {
         ConfigInDb::find($id)->delete();
-        return redirect()->route('configurations.index')
-                        ->with('success','User deleted successfully');
+        return $this->redirectBackSuccess("success deleted ");
     }
 
     

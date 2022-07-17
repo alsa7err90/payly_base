@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Permission;
 use App\Services\CompanyService;
+use App\Http\Controllers\BaseController as BaseController;
 
-class CompanyController extends Controller
+class CompanyController extends BaseController
 { 
     
     protected $companyService;
@@ -53,13 +54,11 @@ class CompanyController extends Controller
         if($this->companyService->checkIfDataCorrect($request)){
             $this->companyService->setPermissions($request->name);
             $this->companyService->createCompany($request);
-            
-            return redirect()->back()
-            ->with('success', 'Company was created successfully!');
-        }
-        return redirect()->back()
-        ->with('error', 'The percent should be between 0-100 !');
-       
+             
+            return $this->redirectBackSuccess("success store"); 
+        } 
+        return $this->redirectBackError("The percent should be between 0-100 !");  
+
     }
 
     /**
@@ -88,11 +87,11 @@ class CompanyController extends Controller
     {
         if($this->companyService->checkIfDataCorrect($request)){
             $company->update($request->all());
-            return redirect()->route('companies.index')
-            ->with('success','Company updated successfully');
-        }
-        return redirect()->back()
-        ->with('error', 'The percent should be between 0-100 !');
+            
+       return $this->redirectBackSuccess("success update");
+            
+        } 
+        return $this->redirectBackError("The percent should be between 0-100 !");
     }
 
     /**
@@ -103,8 +102,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {  
-        $company->delete();
-        return redirect()->back()
-        ->with('success', 'success deleted !');
+        $company->delete(); 
+        return $this->redirectBackSuccess("success deleted ");
     }
 }

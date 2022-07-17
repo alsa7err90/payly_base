@@ -7,8 +7,9 @@ use App\Models\Card;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Services\CardService;
+use App\Http\Controllers\BaseController as BaseController;
 
-class CardController extends Controller
+class CardController extends BaseController
 {
     protected $cardService;
 
@@ -48,15 +49,11 @@ class CardController extends Controller
      */
     public function store(CardRequest $request)
     { 
-        if(!$request->hasFile('image')) 
-        return redirect()->back()
-        ->with('error', 'not found image !');
-
+        if(!$request->hasFile('image'))  return $this->redirectBackError("not found image !");
         $request =  $this->cardService->uploadImage($request); 
-        Card::create($request);
+        $request =  $this->cardService->createCard($request);
         
-        return redirect()->back()
-        ->with('success', 'Card was created successfully!');
+       return $this->redirectBackSuccess("success store");
     }
 
     /**
@@ -101,8 +98,7 @@ class CardController extends Controller
 
         $card->update($request);
         
-        return redirect()->back()
-        ->with('success', 'Card was created successfully!');
+       return $this->redirectBackSuccess("success update"); 
     }
 
     /**
@@ -114,7 +110,6 @@ class CardController extends Controller
     public function destroy(Card $card)
     {
         $card->delete();
-        return redirect()->back()
-        ->with('success', 'success deleted !');
+        return $this->redirectBackSuccess("success deleted !");  
     }
 }
