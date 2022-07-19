@@ -28,7 +28,6 @@
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
@@ -36,39 +35,32 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 Manage
             </div>
-
             <!-- Nav Item - Manage Users -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('companies.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span> Companies</span></a>
             </li>
-            
             <!-- Nav Item - Manage Users -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cards.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span> cards </span></a>
             </li>
-
             <!-- Nav Item - Manage Users -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.index') }}">
@@ -81,20 +73,15 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span> Role</span></a>
             </li>
-
             <!-- Nav Item - Manage Users -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('configurations.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span> configurations </span></a>
             </li>
-
-            
-        </ul>        <!-- End of Sidebar -->
-
+        </ul>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
@@ -104,7 +91,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -215,7 +201,8 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{{ asset('assets/img/undraw_profile_1.svg') }}" alt="...">
+                                        <img class="rounded-circle"
+                                            src="{{ asset('assets/img/undraw_profile_1.svg') }}" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -226,7 +213,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{{ asset('assets/img/undraw_profile_2.svg') }}" alt="...">
+                                        <img class="rounded-circle"
+                                            src="{{ asset('assets/img/undraw_profile_2.svg') }}" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -237,7 +225,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{{ asset('assets/img/undraw_profile_3.svg') }}" alt="...">
+                                        <img class="rounded-circle"
+                                            src="{{ asset('assets/img/undraw_profile_3.svg') }}" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -271,7 +260,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('assets/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -308,21 +298,17 @@
                 </div>
             </div>
         </div>
-
-
-        
-
     </div>
     <!-- End of Content Wrapper -->
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2021</span>
+            </div>
         </div>
-    </div>
-</footer>
-<!-- End of Footer -->
+    </footer>
+    <!-- End of Footer -->
     </div>
     <!-- End of Page Wrapper -->
 
@@ -361,7 +347,7 @@
             </div>
         </div>
     </div>
- 
+
 
     {{-- @guest
     <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -387,9 +373,6 @@
         </div>
     </li>
 @endguest --}}
-
-
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>

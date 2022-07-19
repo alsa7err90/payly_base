@@ -1,115 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Create New Company</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('companies.index') }}"> Back</a>
-        </div>
-    </div>
-</div>
-<br>
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
-@if (Session::has('success'))
-   <div class="alert alert-info">{{ Session::get('success') }}</div>
-@endif
-@if (Session::has('error'))
-   <div class="alert alert-danger">{{ Session::get('error') }}</div>
-@endif
+    <x-body.content>
+        <x-slot name="content">
+            <x-cards.title>
+                <x-slot name="title">Create New Company</x-slot>
+                <x-slot name="button">
+                    <a class="btn btn-primary" href="{{ route('companies.index') }}"> Back</a>
+                </x-slot>
+            </x-cards.title>
 
-{!! Form::open(array('route' => 'companies.store','method'=>'POST')) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-        </div>
-    </div>
+            @if (count($errors) > 0)
+                <x-messages.validate>
+                    <x-slot name="list">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </x-slot>
+                </x-messages.validate>
+            @endif
+            @if (Session::has('success'))
+                <x-messages.success>
+                    <x-slot name="message">{{ Session::get('success') }} </x-slot>
+                </x-messages.success>
+            @endif
+            @if (Session::has('error'))
+                <x-messages.error>
+                    <x-slot name="message">{{ Session::get('error') }} </x-slot>
+                </x-messages.error>
+            @endif
 
-     
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>fee:</strong>
-            {!! Form::text('fee', null, array('placeholder' => '5','class' => 'form-control')) !!}
-        </div>
-    </div>
+            <?php
+            $option_fee = ['percent' => 'percent % ', 'amount' => 'amount $'];
+            $option_state = ['0' => 'deactivate', '1' => 'active'];
+            $inputs = [
+                // nameView , nameIndb , placeholder
+                ['text', 'Name', 'name', 'name card'],
+                ['text', 'Url Api', 'url_api', 'get url from company'],
+                ['text', 'Api key', 'api_key', 'get key from company'],
+                ['text', 'required data for api', 'data', '["amount","email","phone","name"]'],
+                ['text', 'Fee', 'fee', 'as 3'],
+                ['select', 'Type Fee', 'type_fee', $option_fee],
+                ['select', 'State', 'state', $option_state],
+                ['text', 'Message text email', 'message', 'Thank you for using our service'],
+                ['text', 'note', 'note', 'write any note here '],
+                ['file', 'Select Image', 'image', ''],
+                ['button', 'save', '', ''],
+            ];
+            ?>
+            <div class="card-body">
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>type fee:</strong>
-                {!! Form::select('type_fee', array(''=>'select type','percent' => 'percent % ', 'amount' => 'amount $'), '', ['class' => 'form-control']); !!}
+                {!! Form::open(['route' => 'companies.store', 'method' => 'POST']) !!}
+                @foreach ($inputs as $input)
+                    <x-form.inputText>
+                        <x-slot name="type">{{ $input[0] }} </x-slot>
+                        <x-slot name="nameView">{{ $input[1] }} </x-slot>
+                        <x-slot name="nameInDb"> {{ $input[2] }} </x-slot>
+                        <x-slot name="placeholder">
+                            @if (gettype($input[3]) == 'string')
+                                {{ $input[3] }}
+                            @else
+                                @foreach ($input[3] as $key => $value)
+                                    <option value="{{ $key }}">
+                                        {{ $value }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </x-slot>
+                    </x-form.inputText>
+                @endforeach
+                {!! Form::close() !!}
             </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>state:</strong>
-                {!! Form::select('state', array('1' => 'active ', '0' => 'deactivate'), '1', ['class' => 'form-control']); !!}
-            </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>url api:</strong>
-            {!! Form::text('url_api', null, array('placeholder' => 'get url from company','class' => 'form-control')) !!}
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>api key	:</strong>
-            {!! Form::text('api_key', null, array('placeholder' => 'get key from company','class' => 'form-control')) !!}
-        </div>
-    </div>
-
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Message text email :</strong>
-            {!! Form::text('message', null, array('placeholder' => 'Thank you for using our service','class' => 'form-control')) !!}
-        </div>
-    </div>
-    
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>required data for api:</strong>
-            {!! Form::text('data', null, array('placeholder' => '["amount","email","phone","name"]','class' => 'form-control')) !!}
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>note :</strong>
-            {!! Form::text('note', null, array('placeholder' => 'note','class' => 'form-control')) !!}
-        </div>
-    </div>
-    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Permission:</strong>
-            <br/>
-            @foreach($permission as $value)
-                <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                {{ $value->name }}</label>
-            <br/>
-            @endforeach
-        </div>
-    </div> --}}
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</div>
-
-{!! Form::close() !!}
-
- @endsection
+        </x-slot>
+    </x-body.content>
+@endsection
