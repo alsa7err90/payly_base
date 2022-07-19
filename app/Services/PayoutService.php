@@ -11,7 +11,7 @@ class PayoutService {
 
     public function checkIfCanPayout($request){
        if(!$this->checkHaveBalnce($request)){
-        return "You do not have enough credit";
+        return "You do not have enough balnce";
        }
        
        if(!$this->checkStateUser()){
