@@ -15,13 +15,13 @@ class CompanyFactory extends Factory
     {
         return [
             'name'=>$this->faker->name(),
-            'state'=>$this->faker->sentence(10), 
+            'state'=>$this->faker->boolean(), 
             'fee'=>$this->faker->boolean(), 
-            'type_fee'=>$this->faker->sentence(10), 
-            'url_api'=>$this->faker->sentence(100), 
-            'api_key'=>$this->faker->sentence(100), 
-            'message'=>$this->faker->sentence(100), 
-            'fee'=>$this->faker->rand(1,115)
+            'type_fee'=>"percent", 
+            'url_api'=>$this->faker->sentence(10), 
+            'api_key'=>$this->faker->sentence(10), 
+            'message'=>$this->faker->sentence(10), 
+            'fee'=>$this->faker->boolean()
         ];
     }
 }

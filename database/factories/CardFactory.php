@@ -15,13 +15,14 @@ class CardFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'amount'=>$this->faker->sentence(100), 
+            'amount'=>$this->faker->sentence(1), 
             'type_amount'=>$this->faker->boolean(),
-            'price'=>$this->faker->random(10),
+            'price'=>$this->faker->sentence(10),
             'image'=>$this->faker->sentence(10),
-            'state'=>$this->faker->sentence(10),
-            'fee'=>$this->faker->sentence(10),
-            'type_fee'=>$this->faker->sentence(10), 
+            'state'=>$this->faker->boolean(),
+            'fee'=>$this->faker->boolean(),
+            'type_fee'=>"percent", 
+            'currency'=>$this->faker->sentence(10), 
             'company_id' => \App\Models\Company::factory()->create()->id,
         ];
     }
