@@ -11,7 +11,18 @@ class Paypal implements PayoutInterface
 {
     // $data : data from user - All the data we need to send payout
     //  $company_data : all data company as fee,api_key,url_api ...
-    // 
+    // $new_balnce : The amount sent will be deducted from the user's balance
+    // setNewBalnceUser :  calc new balnce user
+    // discountFromBlanceUser : discount amount  From Blance User
+    // checkCardExists : When the user selects a card, we check if that card exists 
+    // getIdCompany : get Id Company
+    // amountWillPay : calc amount will payout to user from api
+    // CalculationPercent : calc if type fee percent or amount 
+    // getDataCompany : get Data Company
+    // payout : this function will send data to api for payout
+
+
+
     private const  COMPANY = "Paypal";
     private $data;
     private $user;
@@ -35,10 +46,8 @@ class Paypal implements PayoutInterface
     }
     private function discountFromBlanceUser()
     {
-        $user =  User::whereId($this->user->id)->update(['balnce' => $this->new_balnce]);
-       
-    }
-    ////////////// add cards tomorrow
+       User::whereId($this->user->id)->update(['balnce' => $this->new_balnce]);
+    } 
     
     public function checkCardExists(){
         $amount =  $this->data['amount'];

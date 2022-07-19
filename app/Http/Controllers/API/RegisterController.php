@@ -9,12 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
    
 class RegisterController extends BaseController
-{
-    /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
-     */
+{ 
+    // register
+    // login 
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -36,12 +33,7 @@ class RegisterController extends BaseController
    
         return $this->sendResponse($success, 'User register successfully.');
     }
-   
-    /**
-     * Login api
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function login(Request $request)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 

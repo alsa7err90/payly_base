@@ -20,10 +20,7 @@ class PayoutController extends BaseController
  
     public function pay(Request $request)
     {
-        $use = 'App\CompanyClasses\\';
-        $amount = $request->amount;
-        $type_card = $request->type_card;
-        $payout =$use.$type_card;
+        $payout = $this->getClass($request);
          $data = (array) $request->all();
          
         $checkIfCanPayout =$this->payoutService->checkIfCanPayout($request);
@@ -36,11 +33,5 @@ class PayoutController extends BaseController
         }
          
     }
-
-    
-    
-    
-    
-
-
+ 
 }

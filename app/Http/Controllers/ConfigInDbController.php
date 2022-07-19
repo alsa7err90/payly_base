@@ -10,6 +10,11 @@ use App\Services\ConfigService;
 
 class ConfigInDbController extends BaseController
 {
+    // index  
+    // store 
+    // edit
+    // update
+    // destroy
     protected $configService;
 
     public function __construct(ConfigService $configService)
@@ -27,11 +32,7 @@ class ConfigInDbController extends BaseController
     // $v = config('configInDb.example');
     // dd($v);
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     
     public function index(Request $request)
     {
     
@@ -54,20 +55,11 @@ class ConfigInDbController extends BaseController
         return $this->redirectBackSuccess("success update");
                         
     }
-
-     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
         ConfigInDb::find($id)->delete();
         return $this->redirectBackSuccess("success deleted ");
     }
-
-    
-  
-
+ 
 }
